@@ -83,3 +83,13 @@ const editTask = (index) => {
   }
   showData()
 }
+
+// delete each item
+const dltTask = (index) => {
+  let webtask = localStorage.getItem("localdesk")
+  let todObj = JSON.parse(webtask)
+  console.log({todObj});
+  todObj.splice(index,1)
+  localStorage.setItem("localdesk",JSON.stringify(todObj))
+  showData()
+}
