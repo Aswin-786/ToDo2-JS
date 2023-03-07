@@ -52,3 +52,34 @@ const addInput = () => {
   }
 }
 
+// add button click event
+addbtn.onclick = () => {
+  addInput()
+}
+
+// form.addEventListener('submit', (e) => {
+//   e.preventDefault()
+
+//   addInput()
+// })
+
+
+// edit task
+const editTask = (index) => {
+
+  addbtn.style.display = "none"
+  savebtn.style.display = "block"
+  let webtask = localStorage.getItem("localdesk")
+  let todObj = JSON.parse(webtask)
+  input.value = todObj[index]
+  savebtn.onclick = () => {
+    addbtn.style.display = "block"
+    savebtn.style.display = "none"
+    let webtask = localStorage.getItem("localdesk")
+    let todObj = JSON.parse(webtask)
+    todObj[index] = input.value
+    localStorage.setItem("localdesk",JSON.stringify(todObj))
+    showData()
+  }
+  showData()
+}
