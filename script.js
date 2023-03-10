@@ -93,3 +93,19 @@ const dltTask = (index) => {
   localStorage.setItem("localdesk",JSON.stringify(todObj))
   showData()
 }
+
+// delete all the todo list
+dltallbtn.addEventListener('click', () => {
+  let webtask = localStorage.getItem("localdesk")
+  let todObj = JSON.parse(webtask)
+  if(webtask == null) {
+    todObj = []
+  } else {
+    todObj = JSON.parse(webtask)
+    todObj = []
+  }
+  localStorage.setItem("localdesk",JSON.stringify(todObj))
+  showData()
+})
+
+
