@@ -8,13 +8,13 @@ const form = document.getElementById('form')
 // updating to DOM
 const showData = () => {
   let webtask = localStorage.getItem("localdesk")
-  if(webtask == null) {
+  if (webtask == null) {
     todObj = []
   } else {
     todObj = JSON.parse(webtask)
   }
   // console.log(todObj)
-  let html =''
+  let html = ''
   todObj.forEach((obj, index) => {
     // console.log(obj)
     html += `
@@ -28,7 +28,7 @@ const showData = () => {
             </li>
           `
   })
-  show.innerHTML = html 
+  show.innerHTML = html
 }
 
 // call for accessing saved data in localstorage when screen loads
@@ -39,15 +39,15 @@ const addInput = () => {
   let webtask = localStorage.getItem("localdesk")
   let addinputvalue = input.value
   // console.log(addinputvalue)
-  if(addinputvalue.trim()!=0) {
-    if(webtask == null) {
+  if (addinputvalue.trim() != 0) {
+    if (webtask == null) {
       todObj = []
     } else {
       todObj = JSON.parse(webtask)
     }
     todObj.push(addinputvalue)
     addinputvalue = ''
-    localStorage.setItem("localdesk",JSON.stringify(todObj))
+    localStorage.setItem("localdesk", JSON.stringify(todObj))
     showData()
   }
 }
@@ -78,7 +78,7 @@ const editTask = (index) => {
     let webtask = localStorage.getItem("localdesk")
     let todObj = JSON.parse(webtask)
     todObj[index] = input.value
-    localStorage.setItem("localdesk",JSON.stringify(todObj))
+    localStorage.setItem("localdesk", JSON.stringify(todObj))
     showData()
   }
   showData()
@@ -88,9 +88,9 @@ const editTask = (index) => {
 const dltTask = (index) => {
   let webtask = localStorage.getItem("localdesk")
   let todObj = JSON.parse(webtask)
-  console.log({todObj});
-  todObj.splice(index,1)
-  localStorage.setItem("localdesk",JSON.stringify(todObj))
+  console.log({ todObj });
+  todObj.splice(index, 1)
+  localStorage.setItem("localdesk", JSON.stringify(todObj))
   showData()
 }
 
@@ -98,13 +98,13 @@ const dltTask = (index) => {
 dltallbtn.addEventListener('click', () => {
   let webtask = localStorage.getItem("localdesk")
   let todObj = JSON.parse(webtask)
-  if(webtask == null) {
+  if (webtask == null) {
     todObj = []
   } else {
     todObj = JSON.parse(webtask)
     todObj = []
   }
-  localStorage.setItem("localdesk",JSON.stringify(todObj))
+  localStorage.setItem("localdesk", JSON.stringify(todObj))
   showData()
 })
 
