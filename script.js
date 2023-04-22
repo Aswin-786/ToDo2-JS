@@ -1,3 +1,4 @@
+
 let addbtn = document.getElementById('addbtn')
 let savebtn = document.getElementById('savebtn')
 let input = document.getElementById('input')
@@ -13,19 +14,23 @@ const showData = () => {
   } else {
     todObj = JSON.parse(webtask)
   }
-  // console.log(todObj)
   let html = ''
   todObj.forEach((obj, index) => {
-    // console.log(obj)
     html += `
-            <li>
-            <span>
-              ${index + 1})
-            </span>
-            <p>${obj}</p>            
-            <button onclick = "editTask(${index})">Edit</button>
-            <button onclick = "dltTask(${index})">delete</button>
-            </li>
+            <div class='list'>
+              <li>
+              <div>
+                <span>
+                  ${index + 1})
+                </span>
+                <p>${obj}</p>  
+              </div>   
+              <nav>       
+                <button onclick = "editTask(${index})">Edit</button>
+                <button onclick = "dltTask(${index})">Delete</button>
+              </nav>
+              </li>
+            </div>
           `
   })
   show.innerHTML = html
@@ -52,21 +57,14 @@ const addInput = () => {
   }
 }
 
+
 // add button click event
 addbtn.onclick = () => {
   addInput()
 }
 
-// form.addEventListener('submit', (e) => {
-//   e.preventDefault()
-
-//   addInput()
-// })
-
-
 // edit task
 const editTask = (index) => {
-
   addbtn.style.display = "none"
   savebtn.style.display = "block"
   let webtask = localStorage.getItem("localdesk")
@@ -88,7 +86,6 @@ const editTask = (index) => {
 const dltTask = (index) => {
   let webtask = localStorage.getItem("localdesk")
   let todObj = JSON.parse(webtask)
-  console.log({ todObj });
   todObj.splice(index, 1)
   localStorage.setItem("localdesk", JSON.stringify(todObj))
   showData()
@@ -96,16 +93,19 @@ const dltTask = (index) => {
 
 // delete all the todo list
 dltallbtn.addEventListener('click', () => {
-  let webtask = localStorage.getItem("localdesk")
-  let todObj = JSON.parse(webtask)
-  if (webtask == null) {
-    todObj = []
-  } else {
-    todObj = JSON.parse(webtask)
-    todObj = []
-  }
+  todObj = []
   localStorage.setItem("localdesk", JSON.stringify(todObj))
   showData()
 })
 
-
+// searching
+let searchInput = document.getElementById('search')
+let rows = document.querySelectorAll('ul li')
+searchInput.addEventListener('input', (event) => {
+  const ele = event.target.value.toLowerCase()
+  rows.forEach((row) => {
+    row.querySelector('p').textContent.toLowerCase().startsWith(ele) ?
+      (row.style.display = "")
+      : (row.style.display = "none")
+  })
+})
