@@ -1,5 +1,5 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Shantell+Sans&display=swap');
+
 * {
   padding: 0;
   margin: 0;
@@ -17,7 +17,7 @@ header {
   width: 100%;
   top: 0;
   left: 0;
-  height: 60px;
+  height: 80px;
   background-image: linear-gradient(to right, #04619F, black);
   display: flex;
   padding: 10px 25px;
@@ -38,7 +38,7 @@ input::placeholder {
   font-size: 16px;
   letter-spacing: 1px;
   color: rgb(129, 127, 127);
-  
+
 }
 
 header input {
@@ -64,7 +64,7 @@ header button {
 main {
   position: relative;
   left: 50%;
-  top: 200px ;
+  top: 200px;
   transform: translate(-50%);
   display: flex;
   align-items: center;
@@ -93,6 +93,10 @@ main button {
   font-size: 18px;
   cursor: pointer;
   height: 35px;
+}
+
+main button:hover {
+  opacity: 0.8;
 }
 
 main .all .top {
@@ -131,6 +135,65 @@ main .mid li {
   width: 500px;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
+main .mid li div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.list .edit,
+.list .delete {
+  font-size: 14px;
+}
+
+@media screen and (min-width: 300px) {
+  header {
+        height: 40px;
+    padding: 12px 10px;
+
+  }
+  
+  header h1 {
+    font-size: 34px;
+    font-family: 'Shantell Sans', cursive;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+  
+  input::placeholder {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: rgb(129, 127, 127);
+  
+  }
+  
+  header input {
+    border: none;
+    outline: none;
+    padding: 8px 16px;
+    border-radius: 15px;
+  }
+  
+  header button {
+    border: none;
+    outline: none;
+    background-color: white;
+    color: rgb(39, 142, 179);
+    border-radius: 25px;
+    padding: 7px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    height: 35px;
+  }
+  
+}
