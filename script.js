@@ -26,8 +26,8 @@ const showData = () => {
                 <p>${obj}</p>  
               </div>   
               <nav>       
-                <button onclick = "editTask(${index})">Edit</button>
-                <button onclick = "dltTask(${index})">Delete</button>
+                <button class="edit" onclick = "editTask(${index})">Edit</button>
+                <button class="delete" onclick = "dltTask(${index})">Delete</button>
               </nav>
               </li>
             </div>
