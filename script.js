@@ -1,111 +1,92 @@
+const addbtn = document.getElementById('addbtn');
+const savebtn = document.getElementById('savebtn');
+const input = document.getElementById('input');
+const show = document.getElementById('show');
+const dltallbtn = document.getElementById('dltallbtn');
+const form = document.getElementById('form');
 
-let addbtn = document.getElementById('addbtn')
-let savebtn = document.getElementById('savebtn')
-let input = document.getElementById('input')
-let show = document.getElementById('show')
-let dltallbtn = document.getElementById('dltallbtn')
-const form = document.getElementById('form')
+let todObj = [];
 
-// updating to DOM
+// Update the UI with the tasks from localStorage
 const showData = () => {
-  let webtask = localStorage.getItem("localdesk")
-  if (webtask == null) {
-    todObj = []
-  } else {
-    todObj = JSON.parse(webtask)
-  }
-  let html = ''
-  todObj.forEach((obj, index) => {
-    html += `
-            <div class='list'>
-              <li>
-              <div>
-                <span>
-                  ${index + 1})
-                </span>
-                <p>${obj}</p>  
-              </div>   
-              <nav>       
-                <button class="edit" onclick = "editTask(${index})">Edit</button>
-                <button class="delete" onclick = "dltTask(${index})">Delete</button>
-              </nav>
-              </li>
-            </div>
-          `
-  })
-  show.innerHTML = html
-}
+  let webtask = localStorage.getItem('localdesk');
+  todObj = webtask ? JSON.parse(webtask) : [];
+  const html = todObj
+    .map((task, index) => `
+      <div class='list'>
+        <li>
+          <div>
+            <span>${index + 1})</span>
+            <p>${task}</p>
+          </div>
+          <nav>
+            <button class="edit" onclick="editTask(${index})">Edit</button>
+            <button class="delete" onclick="dltTask(${index})">Delete</button>
+          </nav>
+        </li>
+      </div>
+    `)
+    .join('');
+  show.innerHTML = html;
+};
 
-// call for accessing saved data in localstorage when screen loads
-showData()
+// Call to display saved data from localStorage when the page loads
+showData();
 
-// updating when values typed on input field
+// Update the localStorage with the latest tasks and update the UI
 const addInput = () => {
-  let webtask = localStorage.getItem("localdesk")
-  let addinputvalue = input.value
-  // console.log(addinputvalue)
-  if (addinputvalue.trim() != 0) {
-    if (webtask == null) {
-      todObj = []
-    } else {
-      todObj = JSON.parse(webtask)
-    }
-    todObj.push(addinputvalue)
-    addinputvalue = ''
-    localStorage.setItem("localdesk", JSON.stringify(todObj))
-    showData()
+  const addinputvalue = input.value.trim();
+  if (addinputvalue.length !== 0) {
+    todObj.push(addinputvalue);
+    input.value = '';
+    localStorage.setItem('localdesk', JSON.stringify(todObj));
+    showData();
   }
-}
+};
 
-
-// add button click event
+// Handle "Add" button click event
 addbtn.onclick = () => {
-  addInput()
-}
+  addInput();
+};
 
-// edit task
+// Edit a task
 const editTask = (index) => {
-  addbtn.style.display = "none"
-  savebtn.style.display = "block"
-  let webtask = localStorage.getItem("localdesk")
-  let todObj = JSON.parse(webtask)
-  input.value = todObj[index]
+  addbtn.style.display = 'none';
+  savebtn.style.display = 'block';
+  input.value = todObj[index];
+
   savebtn.onclick = () => {
-    addbtn.style.display = "block"
-    savebtn.style.display = "none"
-    let webtask = localStorage.getItem("localdesk")
-    let todObj = JSON.parse(webtask)
-    todObj[index] = input.value
-    localStorage.setItem("localdesk", JSON.stringify(todObj))
-    showData()
-  }
-  showData()
-}
+    addbtn.style.display = 'block';
+    savebtn.style.display = 'none';
+    todObj[index] = input.value;
+    localStorage.setItem('localdesk', JSON.stringify(todObj));
+    showData();
+  };
+};
 
-// delete each item
+// Delete an individual task
 const dltTask = (index) => {
-  let webtask = localStorage.getItem("localdesk")
-  let todObj = JSON.parse(webtask)
-  todObj.splice(index, 1)
-  localStorage.setItem("localdesk", JSON.stringify(todObj))
-  showData()
-}
+  todObj.splice(index, 1);
+  localStorage.setItem('localdesk', JSON.stringify(todObj));
+  showData();
+};
 
-// delete all the todo list
+// Delete all the todo list
 dltallbtn.addEventListener('click', () => {
-  todObj = []
-  localStorage.setItem("localdesk", JSON.stringify(todObj))
-  showData()
-})
+  todObj = [];
+  localStorage.removeItem('localdesk');
+  showData();
+});
 
-// searching
-let searchInput = document.getElementById('search')
-let rows = document.querySelectorAll('ul li')
+// Searching tasks
+const searchInput = document.getElementById('search');
+const rows = document.querySelectorAll('ul li');
+
 searchInput.addEventListener('input', (event) => {
-  const ele = event.target.value.toLowerCase()
+  const ele = event.target.value.toLowerCase();
   rows.forEach((row) => {
-    row.querySelector('p').textContent.toLowerCase().startsWith(ele) ?
-      (row.style.display = "")
-      : (row.style.display = "none")
-  })
-})
+    row.querySelector('p').textContent.toLowerCase().startsWith(ele)
+      ? (row.style.display = '')
+      : (row.style.display = 'none');
+  });
+});
